@@ -1,0 +1,21 @@
+Как читать логи Ollama и llama.cpp
+
+Ваши логи — это детальная телеметрия работы инференс-сервера под капотом Ollama (llama-server). Инженер по ИИ читает их для мониторинга производительности и поиска узких мест (bottlenecks).
+
+    Инициализация оборудования (device_info, MTL0):
+
+        library=Metal compute=0.0 name=MTL0 description="Apple M1" — сервер распознал графический чип Apple Silicon (M1) через API Apple Metal.
+
+        total="11.8 GiB" available="11.8 GiB" — доступная унифицированная память для GPU.
+
+    Загрузка модели в память (load_model, offload):
+
+        load_tensors: offloaded 33/33 layers to GPU — модель (Llama-3-8B) полностью поместилась в видеопамять Mac (слои ушли на GPU), что гарантирует максимальную скорость генерации без переключения на медленный CPU/RAM.
+
+    Метрики обработки промпта (prompt eval time):
+
+        prompt eval time = 13222.50 ms / 1449 tokens (9.13 ms per token, 109.59 tokens per second) — время «прогрева» (prefill phase). Сервер обрабатывал 1449 токенов вашего контекста (RAG + промпт) со скоростью ~110 токенов в секунду.
+
+    Скорость генерации ответа (eval time, tg):
+
+        eval time = 37411.18 ms / 387 tokens (96.92 ms per token, 10.32 tokens per second) — скорость генерации самого ответа моделью составила 10.32 токена в секунду (tg от token generation). Для локального запуска на M1 это стандартный и комфортный показатель.

@@ -1,0 +1,26 @@
+MacBook-Pro 8.rag-towards-ds-8.1 % python3 rag8.2.py
+/Users/shynggys.umbetov/Documents/AI Engineer converting/Learning/roadmap-sh/8.rag-towards-ds-8.1/rag8.2.py:2: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+  from langchain_community.document_loaders import TextLoader
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|█| 103/103 [00:00<00:
+Welcome to the Local RAG Assistant Ollama. Type 'exit' to quit.
+
+You: what is latest answer of nfactorial school ? and what effienct way to answer them in order to not pay mmore then 200k kzt ? apply best negotiation methods tactics, strategies.may be better to ignore and not answer ?
+
+Assistant: The latest answer from nFactorial School is:
+
+"Таким образом, сейчас мы можем подготовить договор на 400 000 ₸ с учётом гранта Tech Orda и выставить счёт на оплату в размере 400 000 ₸ с Вашей стороны."
+
+Which means they are willing to prepare a contract for 400,000 KZT with the Tech Orda grant and present an invoice for 400,000 KZT from your side.
+
+To avoid paying more than 200,000 KZT, you can try the following negotiation methods:
+
+1. Acknowledge their latest offer and express gratitude: "Thank you for your latest offer. I appreciate your willingness to work with me."
+2. Reiterate your original agreement: "As we previously discussed, our original agreement was for a 20% discount, which would bring the total cost down to 480,000 KZT. I was hoping we could stick to that original agreement."
+3. Highlight the value of your business: "I understand that you're willing to work with me, but I'd like to remind you that my business is a valuable partner for your school. I believe we can work together to find a mutually beneficial agreement."
+4. Suggest a compromise: "Would you be willing to meet me halfway and offer a 15% discount? That would bring the total cost down to 510,000 KZT, which is still a significant discount from the original price."
+5. Be prepared to walk away: "I appreciate your offer, but I'm not comfortable paying 400,000 KZT. I'm willing to walk away if we can't come to a mutually beneficial agreement. I'm looking for a 20% discount, and I'm not willing to compromise on that."
+
+Remember to stay calm, professional, and respectful throughout the negotiation. Good luck!
+
+You: 

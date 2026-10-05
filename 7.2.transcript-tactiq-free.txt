@@ -1,0 +1,444 @@
+# tactiq.io free youtube transcript
+# The Complete Guide to Building AI Agents for Beginners
+# https://www.youtube.com/watch/MOyl58VF2ak
+
+00:00:00.280 It is clear that in a few years, businesseswill hire agencies composed entirely of AI
+00:00:06.339 agents.
+00:00:08.929 For example, an AI lab cognition recentlyreleased their first AI software engineer
+00:00:19.980 named Devin that outperforms anything elsethat we have ever seen before SWE benchmark.
+00:00:26.170 It can train its own AI, learn unfamiliartechnologies, contribute to production repos,
+00:00:31.490 and even complete some side hustles on Upwork.
+00:00:34.660 But what many people don't realize is thatthis comparison on their chart is made between
+00:00:39.640 standard large language models, like Claudeor gpt-4 while Devin has access to additional
+00:00:47.180 tools like a terminal, code editor, and evenits own browser.
+00:00:51.140 So, all it is, is literally just a cleverlyprompted LLM with a bunch of tools, and this
+00:00:56.760 lab has already gotten more than 20 millionsof dollars in funding.
+00:01:01.030 Personally, I don't believe they're headingin the right direction and I'll explain exactly
+00:01:05.440 why later, but what this really shows is thatwe're merely scratching the surface of what's
+00:01:10.369 possible here.
+00:01:11.440 -So In this video I will share with you myentire experience developing custom AI agent
+00:01:15.830 systems over the last year developing customAI agent systems for companies of all sizes
+00:01:19.140 raging from small firms with 5 employees toentire corporation with 30000+ people.
+00:01:24.720 In fact, by the end of this video you willbe able to build your own fully functional
+00:01:28.930 Social Media Marketing Agency that will generatead copy, create ad images with DALL-E 3, and
+00:01:34.680 reliably post them on Facebook.
+00:01:36.500 Here is the game plan.
+00:01:38.000 We'll start with an overview of new AI Agentdeveloper role and what it entails
+00:01:42.860 Next, we'll unravel what AI Agents truly are.
+00:01:46.680 After that we'll take a tour of the most popularAI agent frameworks at your disposal.
+00:01:51.170 Then, I'll be pulling back the curtain onmy own framework, giving you an insider's
+00:01:55.430 perspective on how it works and how you canleverage it in your own projects.
+00:01:59.909 And finally, we'll get hands-on as we builda fully functional SMMA, ready to take on
+00:02:06.259 new clients and generate profits.
+00:02:08.729 This will be a comprehensive guide, highlightingmy entire process from start to finish.
+00:02:14.260 So make yourself comfortable and let's divein.
+00:02:17.030 First, let's me define this new AI Agent Developerrole and why I believe it will be one of the
+00:02:27.270 most in-demand skills in 2024.
+00:02:29.569 Well, numerous studies and industry expertspredict that we're headed towards full labor
+00:02:34.930 automation in the next decade.
+00:02:37.160 While I totally agree with this projection,I don't think it will be a self-driven process.
+00:02:42.440 As AI models become increasingly intelligent,they're certainly going to gain a broader
+00:02:47.670 understanding of the world.
+00:02:49.170 However, they will never know how a specificcompany operates internally, simply because
+00:02:54.550 such data is rarely made public.
+00:02:57.130 As we saw in 2023, businesses don't just wantto incorporate standard LLMs into their processes.
+00:03:04.080 They want to customize them and at least enrichthem with their own personal data.
+00:03:08.800 The reason I believe why labs like cognitionwill soon fail is because they lack customization.
+00:03:14.530 To fully automate a company like google youneed more than just a super intelligent AI
+00:03:19.380 developer.
+00:03:20.380 We need to make sure that this developer hasaccess to all the necessary tools, infrastructure
+00:03:24.390 and internal knowledge, before it can actuallyperform any tasks.
+00:03:29.080 This is where AI Agent Developers come in.
+00:03:31.210 So, an AI Agent Developer is someone who fine-tunesAI agents based on internal business processes.
+00:03:38.390 As an AI Agent Developer, my primary responsibilityis to equip AI with all the necessary resources
+00:03:44.640 and ensure it knows how and when to use themin production.
+00:03:48.660 The primary skills required for an AI agentdeveloper role can significantly vary from
+00:03:54.049 project to project.
+00:03:55.329 This topic deserves its own separate videoby itself, so if you're interested, please
+00:03:59.720 let me know in the comments.
+00:04:01.519 Soon I'll walk you through exactly how toaccomplish all of this.
+00:04:05.080 But for now we need to understand what AIagents truly are.
+00:04:08.890 A lot of people say that AI Agents are justinstructions knowledge and actions.
+00:04:14.049 And sure that's sort of true, but that's notexactly what AI agents are, that's how we
+00:04:19.790 make AI agents.
+00:04:20.899 In fact, AI Agents are much more than that.
+00:04:24.280 Let me explain.
+00:04:25.280 To answer what AI agents truly are we needto unpack the difference between standard
+00:04:30.460 1.0 AI automations and more sophisticated2.0 AI agent-based applications.
+00:04:36.150 Picture a straightforward customer supportautomation where an LLM must label each incoming
+00:04:41.580 email and must respond to it, pulling someadditional context from a vector database.
+00:04:46.460 Does this sound like an agent or mere AI automation?
+00:04:49.759 You may have noticed that it doesn't quitefeel like an agent, right?
+00:04:53.130 But why?
+00:04:54.130 It has knowledge from your vector database,and has instructions on how to respond, and
+00:04:58.110 performs an action of attaching a label.
+00:05:00.410 And the distinction lies in the fact thatI said that it must generate a label and must
+00:05:05.530 answer each email.
+00:05:06.580 You see, the fundamental difference betweenautomations and agents is that agents possess
+00:05:11.860 decision-making capabilities.
+00:05:13.770 So, In 1.0 AI automations, every single procedure,like context retrieval, response generation,
+00:05:20.199 and labeling is hardcoded into the backendlogic.
+00:05:23.410 This means that it literally can not deviatefrom this logic, no matter what.
+00:05:27.729 If the automation is tasked with respondingto emails, it cannot neglect to respond.
+00:05:33.190 And while all this rigidity works well forcertain use cases, it completely fails as
+00:05:37.850 soon as some unexpected circumstances arise.
+00:05:40.889 Imagine for example if your customer supportmailbox receives an inquiry about a potential
+00:05:45.630 partnership with your platform.
+00:05:47.420 If this scenario wasn't accounted for, a 1.0AI automation would handle it like any other
+00:05:53.060 support inquiry, potentially causing a missedopportunity.
+00:05:56.480 On the contrary, 2.0 AI Agent-Based applicationshave a different approach.
+00:06:01.170 While they still equip the agent with thenecessary tools, context, and instructions,
+00:06:05.400 they grant the agent the autonomy on how toutilize these tools by itself.
+00:06:10.509 Instead of feeding your context into the prompton every request, you empower the agent to
+00:06:15.419 retrieve it only when it's needed.
+00:06:17.390 This flexibility means that the agent canadapt accordingly.
+00:06:21.069 So in our previous example, the agent wouldrecognize that it's dealing with an inquiry
+00:06:25.660 outside of its expertise and then it coulduse other available tools if possible.
+00:06:30.500 For example, it could reach out to your humansupport agent, or it could send a notification
+00:06:35.289 in slack.
+00:06:36.389 Overall, what AI agents truly are is a newway of thinking about how to apply AI in various
+00:06:43.190 applications.
+00:06:44.190 It's a paradigm shift rather than a simpletechnique.
+00:06:46.819 In my agency we all began with simple 1.0AI automations, but as my clients saw the
+00:06:52.630 tangible benefits they offered, they yearnedfor more-more advanced capabilities and automation
+00:06:57.930 of increasingly complex tasks.
+00:07:00.250 Over time, we reached a stage where I wouldn'teven call it as automation anymore.
+00:07:04.460 It was more akin to outsourcing, as some ofthe processes we automated literally required
+00:07:09.400 multiple people to manually carry them out.
+00:07:12.050 And the performances were never the same.
+00:07:14.250 Now, having said all this, where do AgentSwarms come in?
+00:07:17.660 To truly grasp the concept of agent swarms,it's crucial to understand that all intelligence
+00:07:23.410 is environment-dependent.
+00:07:25.099 For instance, I might excel when it comesto programming, but I'm utterly lost when
+00:07:29.190 it comes to cooking.
+00:07:30.190 I would not last a day as a cook even in McDonald'sfor a day.
+00:07:33.750 I just basically eat meat and nothing else.
+00:07:36.400 This applies to both AI agents and your ownemployees.
+00:07:39.510 You can't assign 10 different roles to eventhe smartest person in the world
+00:07:43.720 Likewise, even we reach GPT-100, I would stillnot recommend assigning so many different
+00:07:49.490 responsibilities to a single agent.
+00:07:51.659 Firstly, by removing all unnecessary informationfor a given process simply saves you on tokens.
+00:07:56.849 And secondly, even if GPT-100 would not getconfused handling 10 different roles, the
+00:08:02.250 users of such a system certainly would.
+00:08:04.330 So, what agent swarms really allow you todo is separate responsibilities for different
+00:08:09.030 environments, just like in real world organizations.
+00:08:12.199 This results in 3 main benefits:First, it dramatically reduces hallucinations.
+00:08:17.180 I found that after you add 7 to 10 tools toa single GPT4 agent, it starts to get confused.
+00:08:23.180 But when you split these tools into multipleagents you almost completely eradicate this
+00:08:28.300 problem.
+00:08:29.300 Secondly, you can outsource much more complextasks.
+00:08:31.840 Because, The longer the sequence of your agentsis, the more tasks they can handle without
+00:08:36.390 direct supervision.
+00:08:37.429 And lastly, it makes the whole system mucheasier to scale.
+00:08:41.000 You see, most of my clients don't stop ona single AI Agent and often try to automate
+00:08:46.850 increasingly complex processes over time.
+00:08:49.410 So when the need arises instead of adjustingyour existing system, and than debugging it
+00:08:54.260 all over again, you can simply add anotheragent and leave all the previous agents as
+00:08:59.390 they are.
+00:09:00.390 In fact this last problem of scaling is socommon among my clients that this week we
+00:09:04.529 are releasing the first of it's kind AI Agentsas a Service subscription.
+00:09:08.850 Basically, if you are a business owner youcan now pay us a fixed fee per month and we
+00:09:13.200 will develop as many AI agents as you need,but we will work on them one at a time.
+00:09:18.130 Our goal is to provide a flexible and scalablesolution that grows with your needs.
+00:09:22.930 So if you are interested, you can apply rightnow sing the link below at a temporarily discounted
+00:09:27.660 price.
+00:09:28.660 However, if you're inclined to take on thisjourney by yourself, that's perfectly fine
+00:09:32.250 too, because next, I'm going to walk you throughmy entire process from start to end.
+00:09:36.920 But before we get into the nitty-gritty, let'sstart with a brief overview of all the multi-agent
+00:09:41.940 frameworks at your disposal.
+00:09:43.970 The first project is the one you've probablyheard of, called AutoGen by Microsoft.
+00:09:49.390 The main feature of AutoGen is multi-agentchats.
+00:09:52.570 It was developed as a research experimentand was quite groundbreaking at the time.
+00:09:56.700 However, the problem with AutoGen is thatit has extremely limited conversational patterns
+00:10:01.080 that are super hard to customize.
+00:10:03.080 If you look at its code, in AutoGen the nextspeaker is determined with an extra call to
+00:10:07.660 the model that emulates role play betweenthe agents.
+00:10:10.810 Let me just read it to you "Read the aboveconversation.
+00:10:13.750 Then select the next speaker from agent names;only return the role."
+00:10:17.700 I mean, not only is this extremely inefficient,but it also makes the whole system absolutely
+00:10:23.720 uncontrollable.
+00:10:24.720 A lot of people report that agents constantlyhallucinate because there is no clear separation
+00:10:29.320 of concerns when it comes to tool execution.
+00:10:32.100 1 agent might write the code, but becauseit needs to be executed by user proxy, or
+00:10:36.630 some other agent, it often results in hallucinations,which is a huge problem in production.
+00:10:41.970 The next framework that has recently beengetting a ton of attention is called crew
+00:10:46.029 ai.
+00:10:47.029 CrewAI was developed as a side project andit introduces the concept of "process" into
+00:10:52.279 agent communication.
+00:10:53.279 This provides some semblance of control overthe communication flow.
+00:10:56.410 However, just like in AutoGen, the conversationflows are extremely limited, offering only
+00:11:00.990 sequential or hierarchical options.
+00:11:03.410 In the sequential process basically all youragents communicate to each other one by one.
+00:11:08.139 And in the hierarchical there is a one manageragent communicates to everyone else.
+00:11:12.370 Obviously, this is not how real organizationsare structured.
+00:11:15.680 For example, can you imagine Sundar Pichaimanually instructing a QA tester, who tested
+00:11:21.200 this amazing new sign in screen?
+00:11:23.480 Additionally, in Crew AI, the manager agentis hardcoded for you, which for some reason
+00:11:28.400 people find cool.
+00:11:29.750 However, imagine if you want this agent tofirst search the web for additional context
+00:11:33.950 before deciding who it should speak next to.
+00:11:36.639 Try doing that in Crew AI.
+00:11:38.180 The biggest problem with CrewAI, however,is that it is built on top of Lang-chain,
+00:11:42.040 which was released before any function-callingmodels.
+00:11:44.950 This means that there is no automatic typechecking or error correction when it comes
+00:11:48.470 to tool execution.
+00:11:49.519 The description for these tools are also extremelylimited.
+00:11:52.810 Recently CrewAI introduce way to overcomethis by extending a base tool class, however
+00:11:57.470 his process is definitely not straightforwardas it could have been.
+00:12:00.940 The goal, backstory, the role and the tasks,that you need to define when you are creating
+00:12:05.000 your crew are simply prompt templates thatalso take away control from you as a developer.
+00:12:10.639 Without these prompt templates the CrewAIsimply would not be able to function.
+00:12:14.320 The only advantage of CrewAI is that you canuse it with open source models.
+00:12:18.600 Now personally I would never utilize any ofthese frameworks in production for my clients
+00:12:22.889 which is why I developed my own frameworkcalled Agency Swarm.
+00:12:26.930 In this framework, there isn't a single hard-codedprompt.
+00:12:29.980 It's easily customizable with uniform communicationflows, and it is extremely reliable in production
+00:12:35.430 because it provides automatic type checkingand validation for all tools with the instructor
+00:12:40.400 library.
+00:12:41.400 It is the thinnest possible wrapper aroundOpenAI's Assistance API, meaning that you
+00:12:45.380 have full control over all your agents.
+00:12:48.360 So whether you add a manager agent, definegoals, processes, or not, whether you create
+00:12:53.000 a sequential or hierarchical flow or evencombine both with a communication tree that
+00:12:58.029 is 50 levels in depth, I don't care, it isstill going to work.
+00:13:02.550 Your agents will determine who to communicatewith next, based on their own descriptions
+00:13:06.899 and nothing else.
+00:13:09.579 But, you are probably wondering, why assistantsapi for ai agent development?
+00:13:21.600 Well, that's a good question because if youlook at all the previous OpenAI endpoints,
+00:13:25.750 you'll find the Assistants API isn't significantlydifferent.
+00:13:34.949 However, it was a game-changer for me as agentdeveloper.
+00:13:39.980 And the reason for this is state management.
+00:13:42.620 You see, with the Assistants' API, you canattach instructions, knowledge, and actions
+00:13:46.630 directly to each new agent.
+00:13:48.950 This not only allows you to separate variousresponsibilities, but also to scale your system
+00:13:53.570 seamlessly without having to worrying aboutany underlying data management or about your
+00:13:58.779 agents confusing each others tools like inother frameworks.
+00:14:02.089 Agent state management is the primary reasonwhy Agency Swarm is fully based on the OpenAI
+00:14:06.769 Assistants API, and to answer your other question,no we are not currently planning to support
+00:14:07.930 any open source models.
+00:14:08.930 If costs are a concern, simply use GPT-3 whichis much better than any LLM that you can run
+00:14:14.260 locally unless you have a 10000$ PC.
+00:14:17.649 If data privacy is a concern you can use myframework with Azure OpenAI, which doesn't
+00:14:22.010 even share data with OpenAI itself.
+00:14:24.360 To get started creating your agent swarmsusing my framework you need to understand
+00:14:28.139 3 essential entities which are Agents, Toolsand Agencies.
+00:14:32.019 Agents, are essentially wrappers around assistantsin Assistants API.
+00:14:36.680 They include numerous methods that simplifythe agent creation process.
+00:14:40.870 For instance, instead of manually uploadingall your files and adding their IDs when creating
+00:14:45.779 an assistant, you can just specify the folderpath.
+00:14:48.410 The system will automatically attach all filesfrom that folder to your assistant.
+00:14:53.480 It also stores all your agent settings ina settings.json file.
+00:14:57.620 Therefore, if your agent's configuration changes,the system will automatically update your
+00:15:02.070 existing assistant on OpenAI the next timeyou run it, rather than creating a new one.
+00:15:05.570 The most commonly used parameters when creatingan agent are name, description, instructions,
+00:15:11.290 model, and tools.
+00:15:13.079 These are all self-explanatory.
+00:15:15.139 There are no preset templates for goals, processes,backstories, etc., so you simply include them
+00:15:20.350 all in the instructions.
+00:15:22.600 Additional parameters include files_folder,schemas_folder, and tools_folder.
+00:15:27.170 As I said, all files from your files folderwill be automatically indexed and uploaded
+00:15:31.709 to OpenAI.
+00:15:32.709 All tools from your tools folder will be attachedto an assistant as well, and all openapi schemas
+00:15:37.860 from your schemas folder will automaticallybe converted into tools, allowing your agents
+00:15:42.620 to easily call third party apis.
+00:15:45.529 Additional properties api_params and api_headersare also available if your API requires authentication.
+00:15:51.579 However, I do recommend creating all yourtools from scratch using Instructor, as it
+00:15:56.411 gives you more control.
+00:15:58.450 I previously posted a detailed tutorial onInstructor, which includes a brief conversation
+00:16:03.699 with its creator, Jason Liu.
+00:16:06.000 Check it out if you're interested.
+00:16:07.589 In essence, Instructor allows you to integratea data validation library, Pydantic, with
+00:16:12.920 function calls.
+00:16:14.040 This ensures that all agent inputs make sensebefore any actions are executed, minimizing
+00:16:20.449 production errors.
+00:16:21.779 For instance, if you have a number divisiontool, you can verify that the divisor is not
+00:16:26.220 zero.
+00:16:27.220 If it is, the agent will see the error andautomatically correct itself before executing
+00:16:32.190 any logic.
+00:16:33.190 To begin creating tools in Agency Swarm withInstructor, create a class that extends a
+00:16:37.970 base tool, add your class properties, andimplement the run method.
+00:16:42.149 Remember, the agent uses the docstring andall field descriptions to understand when
+00:16:47.209 and how to use your tool.
+00:16:49.389 For our number division tool, the docstringshould state that this tool divides two numbers
+00:16:54.620 and describe the parameters accordingly.
+00:16:58.050 Next, define your execution logic within therun method.
+00:17:02.129 You can access all defined fields throughthe self object.
+00:17:05.190 To make some fields optional, use the Optionaltype from Pydantic.
+00:17:08.530 To define available values for your agent,use a literal or enumerator type.
+00:17:12.829 There are also many tricks you can use.
+00:17:15.199 For instance, you can add a chain_of_thoughtparameter inside the tool to save on token
+00:17:19.539 costs and latency, instead of using a chainof thought prompt globally.
+00:17:27.190 To add your validation logic, use field ormodel validators from Pydantic.
+00:17:31.820 In this division tool example, it makes senseto add a field validator that checks if the
+00:17:36.200 divisor is not zero, returning an error ifit is.
+00:17:39.549 Because tools are arguably the most importantpart of any AI Agent based system, I created
+00:17:43.980 this custom GPT to help you get started faster.
+00:17:46.890 For example, if I need a tool that searchesthe web with Serp API, it instantly generates
+00:17:53.190 a BaseTool with parameters like query as astring and num_results as an integer, including
+00:17:57.929 all relevant descriptions.
+00:17:59.350 You can find the link to this tool on ourDiscord.
+00:18:01.790 The final component of the Agency Swarm frameworkis the Agency itself, which is essentially
+00:18:07.289 a collection of agents that can communicatewith one another.
+00:18:10.799 When initializing your agency, you add anAgency chart that establishes communication
+00:18:15.200 flows between your agents.
+00:18:17.110 In contrast to other frameworks, communicationflows in Agency Swarm are uniform, meaning
+00:18:22.500 they can be defined in any way you want.
+00:18:25.250 If you place any agents in the top-level listinside the agency chart, these agents can
+00:18:29.870 communicate with the user.
+00:18:31.590 If you add agents together inside a second-levellist, these agents can communicate with one
+00:18:36.600 another.
+00:18:37.780 To create a basic sequential flow, add a CEOagent to the top-level list, then create a
+00:18:42.510 second-level list with a CEO, developer, andvirtual assistant.
+00:18:46.179 In this flow, the user communicates with theCEO, who then communicates with the developer
+00:18:49.930 and the virtual assistant.
+00:18:51.750 If you prefer a hierarchical flow, place theagents in two separate second-level lists
+00:18:56.970 with the CEO.
+00:18:58.721 Remember, communication flows are directional.
+00:19:02.100 In the previous example, the CEO can initiatecommunication with the developer, who can
+00:19:06.330 respond, but the developer cannot initiatecommunication with the CEO, much like in real
+00:19:11.260 organizations.
+00:19:12.390 If you still want the developer to assigntasks to the CEO, simply add another list
+00:19:16.710 with the developer first and the CEO second.
+00:19:19.250 I always recommend starting with as few agentsas possible and adding more only once they
+00:19:25.441 are working as expected.
+00:19:27.350 Advanced parameters inside the Agency classlike async mode, threads_callbacks, and settings_callbacks
+00:19:33.011 are useful when deploying your swarms on variousbackends.
+00:19:36.530 Be sure to check our documentation for moreinformation.
+00:19:39.809 When it comes to running your agency, youhave 3 options: the Gradio interface with
+00:19:44.610 the demo_gradio command, the terminal versionwith the run_demo method, or get_completion,
+00:19:51.130 which is similar to previous chat completionsAPIs.
+00:19:54.080 Now, let's create our own social media marketingagency together to demonstrate the entire
+00:19:58.929 process from start to finish.
+00:20:01.180 Alright, for those who are new here, pleaseinstall Agency Swarm using the command 'pip
+00:20:06.010 install agency swarm.'
+00:20:08.240 To get started quickly, I usually run the'agency swarm genesis' command.
+00:20:12.950 This will activate the Genesis agency, whichwill create all your agents for you.
+00:20:17.760 It doesn't get everything right just yet,but it does speed up the process significantly.
+00:20:23.000 In my prompt, I'm going to specify that Ineed a Facebook marketing agency that generates
+00:20:27.490 ad copy, creates images with Dalle 3, andposts them on Facebook.
+00:20:32.100 As you can see, we now have our initial agencystructure with three agents: the ad copy agent,
+00:20:38.280 image creator agent, and Facebook manageragent.
+00:20:40.870 I really like how the genesis agency has dividedthese responsibilities among three different
+00:20:45.830 agent roles.
+00:20:46.830 However, I'd like to adjust the communicationflows a bit and adopt a sequential flow, so
+00:20:51.830 I will instruct the genesis CEO accordingly.
+00:20:54.580 Now we have a sequential agency structurewith three communication levels.
+00:20:58.530 We can tell it to proceed with the creationof the agents.
+00:21:02.170 This process takes some time, so I'll skipthis part and return when we're ready to fine-tune
+00:21:08.010 our agents.
+00:21:11.590 After all our agents have been created, youcan see that the CEO tells me that I can run
+00:21:16.010 this agency with the python agency.py command.
+00:21:19.390 All the folders for my agents and tools aredisplayed on the left.
+00:21:23.350 The next step is to test and fine-tune allthese tools.
+00:21:26.580 We'll start with the image generator agent.
+00:21:28.799 The Genesis Agency has created one tool forthis agent called ImageGenerator.
+00:21:33.350 It's impressive how close this tool is towhat I planned to implement myself.
+00:21:39.490 It uses OpenAI to generate an image with asimple prompt, taking ad_copy, theme, and
+00:21:45.470 specific requirements and inserting them intoa prompt template.
+00:21:49.299 Yes, AI has learned to prompt itself.
+00:21:52.650 However, there's an issue: it uses an outdatedOpenAI package version with the Da Vinci Codex
+00:21:58.809 model, which is designed for code generation.
+00:22:01.390 Let's fix this now together.
+00:22:02.809 First, I'll load a new OpenAI client witha convenience method from Agency Swarm Util.
+00:22:08.010 I'll also increase the timeout because imagegeneration can take some time.
+00:22:11.740 After that, I'll adjust the API call to usethe new Dalle 3 model, and then set the timeout
+00:22:16.360 back to the default.
+00:22:17.390 There's one more thing we have to do - wehave to ensure that other agents can use this
+00:22:22.159 image when posting the ad.
+00:22:23.750 So, I'm going to create a new 'save image'method that will save this image locally.
+00:22:28.679 But here is the kicker - I don't want my agentsto pass this image path to each other because
+00:22:34.620 any hallucinations could cause issues.
+00:22:37.360 Instead, I'll save this path to a shared state.
+00:22:39.910 Essentially, shared state allows you to sharecertain variables across all agents in any
+00:22:45.620 tool.
+00:22:46.620 Instead of having the agent manually passthe image path to another agent, you can save
+00:22:50.370 it in one tool and access it in another.
+00:22:53.000 You can also use it to perform validationlogic across various agents, which I'll show
+00:22:57.750 you soon.
+00:22:58.750 Now we are ready to test this tool.
+00:23:00.830 You can do this by adding a simple 'if nameequals main' statement at the end, then initializing
+00:23:05.429 the tool with some example parameters.
+00:23:07.630 Then you can print the result of the run method.
+00:23:10.040 Don't forget to load the environment withyour OpenAI key by adding the 'load_dotenv'
+00:23:14.590 method at the top.
+00:23:15.590 As you can see, we have an image generatedand saved locally, as expected.
+00:23:19.790 This means we can now proceed with adjustingthe next tool, the AdCopyGenerator tool within
+00:23:24.750 the ad copy agent.
+00:23:26.289 This tool is also very similar to my personaldesign.
+00:23:30.549 I'll adjust the prompt a bit and save theresults into the shared state.
+00:23:33.870 Moving on to the Facebook Manager agent, GenesisAgency created two tools for us: the Ad Performance
+00:23:40.430 Monitor tool and the Ad Scheduler and Postertool.
+00:23:44.470 While these tools are quite close, creatingan ad on Facebook requires a few more steps.
+00:23:50.030 Specifically, we need to first create a campaignand an ad set before we can post the ad.
+00:23:54.780 I will use a tool creator custom gpt to requesttwo additional tools, 'Ad Campaign Starter',
+00:24:00.440 and 'Ad Set Creator'.
+00:24:01.799 To run these tools, we first need to installthe Facebook Business SDK, which you can do
+00:24:05.980 with this PIP command.
+00:24:07.419 Next, we need to create our Facebook app.
+00:24:09.820 Go to the Facebook developer website, click"Create App", select "Other" for the use case,
+00:24:14.380 then "Business" for the app type.
+00:24:16.000 Add your app name and click "Create App".
+00:24:18.220 Then click on "Add product" and add "marketingAPI".
+00:24:21.400 Go to "App settings", copy your App ID, Appsecret, and insert them into the environment
+00:24:26.480 file.
+00:24:27.480 Now we have to get our access token by visitingthe Facebook API Explorer website and adding
+00:24:31.780 the appropriate permissions.
+00:24:33.390 After that, copy it and put it into the envfile.
+00:24:37.070 Working with the Facebook API can be challengingas it's known to be one of the more complex
+00:24:41.570 APIs out there.
+00:24:42.830 I won't delve into the details of how I fine-tunedthese tools.
+00:24:46.620 The process is the same: adjust, test, andrepeat until they work as expected.
+00:24:56.240 As you can see in the AdCreator tool, we'reactually utilizing the ad copy, ad headline,
+00:25:00.600 and image path from the shared state thatwe saved earlier.
+00:25:03.809 I have also included a model validator thatchecks the presence of all these necessary
+00:25:09.170 parameters.
+00:25:10.170 If one of the parameters is not defined, thesystem throws a value error and instructs
+00:25:13.950 the agent on which tool needs to be used first.
+00:25:16.910 This approach significantly enhances the reliabilityof the entire system, as it ensures that the
+00:25:21.929 Facebook ad manager agent cannot post anyads until all the required steps like image
+00:25:26.740 generation have been completed.
+00:25:37.020 After successfully testing all our tools,the final step is to refine the instructions.
+00:25:41.400 It is a good practice to include how specificallyyour agents should communicate with each other.
+00:25:45.600 I would also recommend specifying an exactstep-by-step process for them to follow.
+00:25:49.540 Lastly, I decided to make a few adjustmentsin our communication flows.
+00:25:53.440 I'd like to establish a direct line of communicationwith our Facebook Manager agent, so I'll include
+00:25:58.309 it in the top-level list.
+00:25:59.640 Also, I'll allow our CEO agent to communicatedirectly with both the Facebook Manager and
+00:26:04.990 the Image Generator agents.
+00:26:06.210 Now that we've made these adjustments, we'reready to run our agency.
+00:26:10.170 It is as simple as running the python.agency.pycommand and opening the provided Gradio interface
+00:26:15.809 link in your browser.
+00:26:17.190 Let's see how it works.
+00:26:18.240 I'll kindly ask for an advertisement to becreated for my AI development agency, Arsen
+00:26:24.250 AI.
+00:26:25.390 The CEO then instructs the ad copy agent,which promptly provides a clear headline and
+00:26:30.380 ad copy for my agency, stating, "Revolutionizeyour business with AI."
+00:26:35.010 Next, the CEO commands the image generatoragent to create an image for the ad copy,
+00:26:40.080 resulting in a futuristic visual for our campaign.
+00:26:43.230 Finally, the CEO directs the FacebookManagerAgent to commence the campaign using the campaign
+00:26:48.130 starter tool.
+00:26:49.220 It then creates an ad set and executes thead creation function, posting this ad on Facebook.
+00:26:54.520 You can now see this newly generated Facebookad, complete with ad copy, headline, and image,
+00:27:00.419 live on my Facebook account.
+00:27:02.320 Impressive, right?
+00:27:03.660 But what if you want to analyze your campaign'sperformance?
+00:27:07.039 You can do this by directly messaging theFacebook Manager agent, as it was included
+00:27:11.419 in the top-level list.
+00:27:13.370 It uses the AdPerformanceMonitor tool andinforms me that there is currently no data
+00:27:18.880 as it takes some time for an ad to reach itsaudience.
+00:27:22.539 In conclusion, I'd like to briefly share myroadmap for this framework.
+00:27:25.980 First, I plan to establish multi-agency communication.
+00:27:29.570 This feature will allow the integration ofmultiple agencies for super complex use cases.
+00:27:34.340 Next, we'll focus on enhancing the Genesysagency.
+00:27:38.320 With multi-agency communication, the Genesysagency will be able to test other agencies
+00:27:43.409 during their creation.
+00:27:44.880 The goal is to reach a point where there'salmost no need to modify tools or instructions
+00:27:48.750 for simple agencies like the one we've justcreated.
+00:27:51.090 And lastly, we will continue to regularlyupdate this framework to include the latest
+00:27:55.279 releases from the OpenAI Assistants API.
+00:27:57.309 With upcoming features like memory and webbrowsing, the possibilities are exciting to
+00:28:02.419 say the least.
+00:28:03.419 So, stay connected with us on Discord.
+00:28:13.380 We're always on the lookout for new talent.
+00:28:15.710 If you're interested and you have previousexperience with this framework, you can apply
+00:28:20.360 through our job postings channel.
+00:28:26.320 Thank you for watching and don't forget tolike and subscribe.
