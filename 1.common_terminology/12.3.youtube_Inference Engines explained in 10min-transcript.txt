@@ -1,0 +1,292 @@
+# tactiq.io free youtube transcript
+# Inference Engines explained in 10min..
+# https://www.youtube.com/watch/_xM8scs4_x4
+
+00:00:00.080 Inference engine is just one of those
+00:00:01.680 topics that cuts through three different
+00:00:03.679 layers of the AI stack and a lot of
+00:00:05.359 people give up trying to understand how
+00:00:07.200 it works because you need a lot of
+00:00:09.040 lateral knowledge to understand them
+00:00:11.040 across all layers and also over the
+00:00:13.280 years we've had many different types of
+00:00:15.360 model architectures introduced other
+00:00:17.359 than LLMs. So to grasp popular inference
+00:00:19.680 engines that we see today requires us to
+00:00:22.080 dig into these layers in the AI stack as
+00:00:24.880 well as the history behind AI. So let's
+00:00:27.199 get right into inference engines. The
+00:00:29.039 concept of inference engines existed
+00:00:31.039 well before VLM, Lama.cpp, SG Lang,
+00:00:34.320 Tensor RTLM and TGI. All these as you
+00:00:37.200 can see started to emerge around 2023,
+00:00:40.000 right after Chachi PT was first released
+00:00:42.239 and Meta's llama model was leaked to the
+00:00:44.559 public. And these two events caused a
+00:00:46.719 pretty big change in what we needed from
+00:00:48.719 inference engines. Before 2023, we had a
+00:00:51.360 relatively healthy mix of model
+00:00:53.120 architectures compared to today. And
+00:00:55.120 these models needed support like 2D
+00:00:57.360 convolution, pooling, deconvolution, and
+00:01:00.079 intake calibrated quantization. But auto
+00:01:02.399 reggressive LLMs that we use today have
+00:01:04.319 a much different type of work like
+00:01:06.240 attention, batching, KV cache
+00:01:08.400 management, and quantization. And they
+00:01:10.159 all affect what we really want to see
+00:01:12.240 from the inference engines. Let's take a
+00:01:13.840 look at PyTorch as an example. We often
+00:01:15.840 use PyTorch library to build different
+00:01:18.400 tensorbased models. And PyTorch could
+00:01:20.560 also be used for inference as well. But
+00:01:22.560 as you can imagine, the library that was
+00:01:24.560 primarily meant to be used as
+00:01:26.400 generalpurpose work wasn't really
+00:01:28.320 optimized to be good at inferencing auto
+00:01:30.640 reggressive LMS. What's worse is that
+00:01:32.640 after the scaling law was introduced,
+00:01:34.720 models over time got bigger and bigger.
+00:01:37.040 And one of the earliest grassroots
+00:01:38.880 movement to address this in 2023 was
+00:01:41.759 llama.cpp. And the idea was to
+00:01:44.079 specialize for inference workload while
+00:01:46.640 also lowering the memory footprint for
+00:01:49.200 transformer architectures like llama.
+00:01:51.200 Now you might look at this and think,
+00:01:52.560 wait, couldn't PyTorch be repurposed to
+00:01:55.360 do the same thing that llama.cbp is
+00:01:57.439 doing? When it comes to quantization,
+00:01:59.280 methods like GPTQ and AWQ definitely
+00:02:02.159 lowered the memory footprint and they
+00:02:03.840 could then be used in PyTorch directly.
+00:02:06.159 So quantization definitely did coexist
+00:02:08.878 with llama.cpp, but you still needed to
+00:02:11.440 carve out the inference part from
+00:02:13.599 PyTorch and optimize them specifically
+00:02:16.160 for our workload, which was auto
+00:02:18.160 reggressive LLMs. And llama.cpp CPP took
+00:02:20.720 a step into this while having the least
+00:02:22.959 amount of dependencies like PyTorch and
+00:02:25.200 early results of this allowed models
+00:02:27.040 like Llama's 7B model to run on
+00:02:29.440 smartphones. Fast forward to today, this
+00:02:31.599 still remains as a big reason why people
+00:02:34.160 prefer to use llama.cpp because
+00:02:36.239 llama.cpp CPP takes a blended approach
+00:02:38.640 in how it uses the memory hierarchy in
+00:02:41.280 our computers from GPU to CPU and RAM
+00:02:44.560 and SSD rather than assuming that our
+00:02:47.360 model will fit and run in the GPU. And
+00:02:49.599 as part of that effort from Georgie
+00:02:51.360 Gurgenov went towards quantizing the
+00:02:53.360 model as well specifically for that
+00:02:55.519 inference engine. Another thing worth
+00:02:57.120 mentioning about llama.cbp CBP is how it
+00:02:59.519 used memory mapping pretty early in its
+00:03:02.239 origin, only a few days after it was
+00:03:04.080 released as you can see. And memory
+00:03:05.599 mapping pretty much targets how this
+00:03:07.920 entire memory hierarchy gets used to
+00:03:10.480 pass the model's weights around from SSD
+00:03:12.560 to RAM and the rest. For example, if
+00:03:14.720 you're just using GPU to run your model,
+00:03:16.879 your weights are typically loaded from
+00:03:19.120 the SSD through the memory hierarchy and
+00:03:21.680 eventually to the GPU, which means now
+00:03:24.159 you essentially have a full copy of the
+00:03:26.879 model in the GPU, assuming everything
+00:03:29.040 will fit there. But llama CPP can't
+00:03:31.120 really make that kind of assumption. The
+00:03:33.040 entire philosophy of llama.cpp CPP is to
+00:03:35.760 leverage the existing hardware, which
+00:03:37.680 means instead of loading the model
+00:03:39.280 eagerly to the GPU, you can map the
+00:03:41.519 model into virtual memory and let the
+00:03:44.080 operating system bring the required
+00:03:46.080 pages into physical memory on demand.
+00:03:48.799 This way, you're not having another full
+00:03:50.799 copy of the model inside of RAM. Now,
+00:03:53.040 only 3 months after llama.cpp was
+00:03:55.360 released, a new inference engine called
+00:03:57.200 VLM was introduced along with this
+00:03:59.599 research paper, which is certainly worth
+00:04:01.519 reading. But when we look at it from the
+00:04:03.120 AI stack, VLM was trying to optimize the
+00:04:06.319 inference engine quite differently than
+00:04:08.319 Llama. CPP and there's a lot of things
+00:04:10.159 that we need optimization in our lives.
+00:04:12.159 And that's why we have to talk about
+00:04:13.280 Zapier sponsoring this video. As newer
+00:04:15.360 and newer things happen in the AI
+00:04:16.959 industry, it's important to stay tuned.
+00:04:18.560 And having the right automation can be
+00:04:20.320 really helpful. Zapier can help you
+00:04:22.000 build your own custom integration using
+00:04:23.840 Zapier CLI, which I can use here to set
+00:04:26.080 up my project directly here. And after
+00:04:28.080 registering my project, I can just ask
+00:04:29.840 clot code to build me the code that will
+00:04:31.440 check hackernews website for news. And
+00:04:33.199 since Zapier allows polling, it can scan
+00:04:35.199 the entire website for new information
+00:04:37.199 and trigger it automatically. And this
+00:04:39.040 code is directly written and I can test
+00:04:40.880 directly here and publish the app to
+00:04:42.639 Zapier. Which means now on the editor, I
+00:04:44.720 can just select the app and see that
+00:04:46.400 it's pulling the information. And after
+00:04:48.080 adding Gmail to send emails like this, I
+00:04:50.240 can continue building the workflow more
+00:04:51.759 by using an agent in between to further
+00:04:54.080 customize the result all from CLI. And
+00:04:56.160 now I can have a new scanner. All
+00:04:57.520 personal to me. And now you can just
+00:04:58.880 build more complex workflows or go back
+00:05:00.800 to your CLI and add more sources like X,
+00:05:03.360 Reddit, and more. Link in the
+00:05:04.720 description below. Llama. CPP tried to
+00:05:06.800 be unassuming about the stack underneath
+00:05:09.280 and could run the model on the consumer
+00:05:11.360 hardware. But VLM on the other hand
+00:05:13.840 actually embraced the layers below and
+00:05:16.320 tried to squeeze the most throughput out
+00:05:18.639 of them. You can think about it this
+00:05:19.919 way. When we look at typical GPT
+00:05:21.440 architectures like this, it has
+00:05:23.199 embedding, attention, positional
+00:05:25.199 encoding and feed for networks. Llama
+00:05:27.360 CPB focused on quantizing portions of
+00:05:29.840 the model that had large weight matrices
+00:05:32.560 and VLM on the other hand focused on the
+00:05:35.039 context window, more specifically how KV
+00:05:38.080 cache was being managed in the hardware.
+00:05:40.160 And in their research paper, we can see
+00:05:42.160 just how KV cache can easily take up
+00:05:44.479 just as much space as the model's
+00:05:46.240 weights. Now, if you can imagine
+00:05:47.680 multiple users trying to access the
+00:05:50.000 model through the inference engine, you
+00:05:51.919 can imagine just how big this KV cache
+00:05:54.160 might grow into. And KV cache is kind of
+00:05:56.720 this nasty part of auto reggressive
+00:05:58.800 models because they don't really scale
+00:06:00.479 very efficiently, especially once you
+00:06:02.400 have tens and hundreds of users with
+00:06:04.400 different problems. It means that we now
+00:06:06.400 have varying levels of output tokens
+00:06:08.479 generated for each session. So, we had
+00:06:11.039 to manage this growing KV cache
+00:06:13.600 appropriately. But sadly, existing
+00:06:16.000 methods back then were wasting up to 60
+00:06:18.479 to 80% of memory through fragmentation
+00:06:21.280 and over reservation as it says on their
+00:06:23.520 paper. And VLM famously leveraged paged
+00:06:26.560 attention which adapted how operating
+00:06:28.880 system use virtual memory once again but
+00:06:31.520 in the context of KV cache to be stored
+00:06:34.560 into smaller fixedsiz blocks. And with
+00:06:37.039 this, you could have a more flexible
+00:06:39.199 system that stores the growing KV cache
+00:06:41.919 differently and not waste memory trying
+00:06:44.160 to lay them out in a contiguous blocks.
+00:06:46.319 And part of their efforts also went
+00:06:48.080 towards scheduling varying requests in a
+00:06:50.720 continuous batch so that as the
+00:06:52.639 inference engine finished one request,
+00:06:54.960 it could keep working through the new
+00:06:56.639 batch coming in, which is what we call
+00:06:58.560 continuous batching or in-flight
+00:07:00.400 batching. Okay, let's zoom back out a
+00:07:02.080 little bit. LalacP as we saw optimized
+00:07:04.479 the inference engine without relying on
+00:07:06.639 the underlying infrastructure. VLM tried
+00:07:09.120 to maximize the underlying
+00:07:10.800 infrastructure for maximum throughput
+00:07:12.800 and concurrency for more and more users.
+00:07:15.360 And one common pattern that you might
+00:07:17.120 see here is that if you group enough of
+00:07:19.280 these users, you start to notice a
+00:07:21.280 pattern here where prompts coming in can
+00:07:23.919 have very similar prefixes that can be
+00:07:26.720 shared. For example, a lot of their
+00:07:28.319 users might start their prompt with the
+00:07:30.240 phrase, &quot;You are a helpful assistant in
+00:07:32.240 their prompt followed by their own
+00:07:33.919 custom prompts after.&quot; So, if you could
+00:07:36.240 just stash this commonly used phrase and
+00:07:39.199 start building the next pattern that you
+00:07:41.039 might notice with enough samples from
+00:07:43.120 users, you can eventually build this
+00:07:44.880 treelike structure called radics
+00:07:46.880 attention where you have a dictionary of
+00:07:48.960 commonly used prefix and the less
+00:07:51.039 commonly used leaves will eventually get
+00:07:53.280 evicted as you can see. And the whole
+00:07:55.199 idea here is to reuse the KV cache for
+00:07:58.080 shared prefix instead of recomputing
+00:08:00.639 every single time. And that's the idea
+00:08:02.639 that SGLANG brought forward. And they
+00:08:04.720 reported that depending on the task at
+00:08:06.800 hand, it could push the inference
+00:08:08.639 throughput up to 6.4 times faster. But
+00:08:11.919 obviously there's a huge aspect here
+00:08:14.080 because it really depends on the
+00:08:15.680 workload. Now these inference engines
+00:08:17.759 that we just talked about all started to
+00:08:19.759 emerge around 2023 to 2024. But there's
+00:08:22.800 one vendor that continues to follow the
+00:08:24.800 everchanging nature of AI. NVIDIA
+00:08:27.039 introduced Tensor RT back in 2017,
+00:08:29.360 Faster Transformer a few years later,
+00:08:31.280 and in 2023, Tensor RTLM tracking close
+00:08:34.559 to the changing use cases and the supply
+00:08:37.120 of models in the AI stack. Nvidia pretty
+00:08:39.679 much owns the infrastructure and the
+00:08:41.360 chip layer. And just like how other
+00:08:43.120 inference engines optimized for
+00:08:45.200 different use cases they believed was
+00:08:47.440 important, Nvidia leveraged their lower
+00:08:50.399 layers in the AI stack to make an
+00:08:52.080 inference engine that could maximize
+00:08:53.839 their stack on top of their existing
+00:08:55.839 technology. And their earlier results
+00:08:57.600 showed strong numbers in performance as
+00:08:59.920 well as lowering the total cost of
+00:09:01.760 ownership which helped them position
+00:09:03.519 Nvidia as not just the hardware provider
+00:09:06.240 but also the software stack for
+00:09:07.920 inference as well. Now looking at the
+00:09:09.680 progression of inference engines that we
+00:09:11.600 just covered in this video with a broad
+00:09:13.519 stroke. What I tried to focus on is
+00:09:15.600 really what the problem each inference
+00:09:17.920 engine tried to optimize for many years
+00:09:20.160 after and looking back now and many of
+00:09:22.399 them in fact converge to provide really
+00:09:24.560 similar features that we need from
+00:09:26.240 inference engines today but in their own
+00:09:28.640 way. So looking at them at a later time
+00:09:30.880 frame without any context might be a
+00:09:33.279 little bit confusing since a lot of them
+00:09:35.360 now converge to provide very similar
+00:09:37.440 features. Though they certainly optimize
+00:09:39.279 for different use cases. And it's
+00:09:40.880 important to recognize that since 2023
+00:09:43.200 when all of these inference engines all
+00:09:44.959 started the demand profile also changed
+00:09:47.440 as well as we look at how agentic
+00:09:49.760 applications now require a longer
+00:09:51.760 duration usage as people rely on agents
+00:09:54.560 to work on longer duration tasks. We
+00:09:56.880 also have a much more complex model
+00:09:58.880 architecture now than before. Looking at
+00:10:00.959 models from Deepseek, Kimmy, Meta,
+00:10:03.200 Miniax, and so on. They all have their
+00:10:05.440 own unique architecture and kernel
+00:10:07.360 optimization, which puts a different
+00:10:09.279 pressure on these inference engines. So,
+00:10:11.120 as we witness the AI industry unfolding,
+00:10:13.600 it's important to understand where the
+00:10:15.120 bottlenecks are and how they're being
+00:10:16.959 optimized architecturally.
